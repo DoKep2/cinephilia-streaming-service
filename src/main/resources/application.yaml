@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: streamingService
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: kafka-cluster-kafka-bootstrap.strimzi.svc.cluster.local:9092
+server:
+  port: 8081
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /api/v1/streaming/index.html
+  api-docs:
+    path: /api/v1/streaming/swagger/api-doc
+
+event:
+    sourcing:
+      auto-scan-enabled: true
+      scan-package: com.cinephilia
+
+

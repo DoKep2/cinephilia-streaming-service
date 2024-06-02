@@ -1,0 +1,241 @@
+openapi: 3.0.1
+info:
+  title: streaming service
+  description: swagger
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Mansur Mamedov
+    email: mansyr001mamedov@mail.ru
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+  - url: https://localhost:8081/api/v1/streaming
+paths:
+  /default:
+    get:
+      tags:
+        - streaming
+      responses:
+        "200":
+          description: OK
+  /streaming/actions/start:
+    post:
+      tags:
+        - streaming
+      summary: start new streaming
+      description: start new streaming
+      parameters:
+        - name: user_id
+          in: query
+          description: user id
+          required: true
+          schema:
+            type: string
+        - name: movie_id
+          in: query
+          description: movie id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StreamStartedData'
+
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+  /streaming/actions/pause:
+    post:
+      tags:
+        - streaming
+      summary: pause streaming
+      description: pause streaming
+      parameters:
+        - name: stream_id
+          in: query
+          description: stream id
+          required: true
+          schema:
+            type: string
+        - name: play_position
+          in: query
+          description: play position
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+  /streaming/actions/resume:
+    post:
+      tags:
+        - streaming
+      summary: resume streaming
+      description: resume streaming
+      parameters:
+        - name: stream_id
+          in: query
+          description: stream id
+          required: true
+          schema:
+            type: string
+        - name: play_position
+          in: query
+          description: play position
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+  /streaming/actions/seek:
+    post:
+      tags:
+        - streaming
+      summary: seek streaming
+      description: seek streaming
+      parameters:
+        - name: stream_id
+          in: query
+          description: stream id
+          required: true
+          schema:
+            type: string
+        - name: offset
+          in: query
+          description: offset
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+  /streaming/actions/send:
+    post:
+      tags:
+        - streaming
+      summary: send progress
+      description: send stream playback progress
+      parameters:
+        - name: stream_id
+          in: query
+          description: stream id
+          required: true
+          schema:
+            type: string
+        - name: play_position
+          in: query
+          description: play position
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+  /streaming/actions/change:
+    post:
+      tags:
+        - streaming
+      summary: change quality
+      description: change quality
+      parameters:
+        - name: stream_id
+          in: query
+          description: stream id
+          required: true
+          schema:
+            type: string
+        - name: quality
+          in: query
+          description: quality
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+  /streaming/movie/links:
+    get:
+      tags:
+        - streaming
+      summary: get movie s3 links
+      description: get movie s3 links
+      parameters:
+        - name: movie_id
+          in: query
+          description: movie id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MovieUrls'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+components:
+  schemas:
+    StreamStartedData:
+      required:
+        - mode
+        - play_position
+        - quality
+        - stream_id
+      type: object
+      properties:
+        stream_id:
+          maxLength: 255
+          minLength: 1
+          type: string
+        play_position:
+          type: string
+        quality:
+          type: string
+        mode:
+          type: string
+    MovieUrls:
+      required:
+        - get_url
+        - put_url
+        - movie_id
+      type: object
+      properties:
+        get_url:
+          type: string
+        put_url:
+          type: string
+        movie_id:
+          type: string
+x-original-swagger-version: "2.0"

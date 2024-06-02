@@ -1,0 +1,16 @@
+// TODO: change constant user_id to getUserId method when it would answer requests...
+{
+    "createdAt": 1712519584286,
+    "email": "userforstreamingtest@email.com",
+    "password": "test",
+    "gender": "Male",
+    "id": "474ab877-3b77-4264-a218-be6e1c399daa",
+    "userId": "78aca65b-4f73-437c-bc6f-0542b928b828",
+    "userName": "UserForStreamingTest",
+    "name": "USER_CREATED_EVENT",
+    "version": 1,
+    "birthDate": 0,
+    "country": "russia"
+}
+// example movieId "7b24970d-7684-4800-860d-9294c9d5ca26"
+// example streamId "c6e4269c-9c5c-47cb-b419-bbf3449d64bf"
